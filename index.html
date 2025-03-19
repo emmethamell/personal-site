@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body class="bg-gray-100 text-gray-900 flex items-center justify-center min-h-screen">
+
+    <div class="p-6 max-w-lg bg-white shadow-lg rounded-lg" x-data="{ show: false }">
+        <h1 class="text-2xl font-bold">Hello, World!</h1>
+        <button @click="show = !show" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg">
+            Toggle Message
+        </button>
+        <p x-show="show" class="mt-2 text-gray-700">Welcome to my website built with Tailwind and Alpine.js!</p>
+    </div>
+
+</body>
+</html>
