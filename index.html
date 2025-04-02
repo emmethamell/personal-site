@@ -9,7 +9,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="images/initials_icon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About | Emmet Hamell</title>
+    <title>Emmet Hamell</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = { darkMode: "class" };
@@ -19,15 +19,25 @@
       src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
     ></script>
   </head>
-
   <body
     class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen transition-colors duration-300"
   >
     <!-- Navbar -->
-    <nav
-      class="flex justify-between items-center py-4 px-6 bg-gray-200 dark:bg-gray-800"
-    >
-      <a href="index.html" class="font-bold text-xl">Emmet Hamell</a>
+    <nav class="flex justify-between items-center py-4 px-32">
+      <a href="index.html">
+        <img
+          x-show="!dark"
+          src="images/signature.png"
+          alt="Signature"
+          class="w-56"
+        />
+        <img
+          x-show="dark"
+          src="images/signature-white.png"
+          alt="Signature-white"
+          class="w-56"
+        />
+      </a>
       <div class="flex items-center space-x-6">
         <a href="about.html" class="hover:underline">About</a>
         <a href="projects.html" class="hover:underline">Projects</a>
@@ -43,7 +53,216 @@
 
     <!-- Page Content -->
     <main class="max-w-5xl mx-auto px-6 py-10">
-     <div>Landing page</div>
+      <div class="font-bold mb-6">Hello! Learn more here or here</div>
+      <canvas
+        id="dotCanvas"
+        width="500"
+        height="500"
+        class="mx-auto block"
+      ></canvas>
     </main>
+
+    <script>
+      const canvas = document.getElementById("dotCanvas");
+      const ctx = canvas.getContext("2d");
+
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
+      const R = 120;
+      const r = 40;
+      const numDots = 800;
+      let rotation = { x: 0, y: 0 };
+      let targetRotation = { x: 0, y: 0 };
+      const lightDirection = { x: 0.5, y: -0.5, z: 1 };
+      let lastMouseMove = Date.now();
+      let lastFrameTime = Date.now();
+      let autoRotationAngleY = 0;
+      let autoRotationAngleX = 0;
+
+      // Generate 3D torus points
+      const points = Array.from({ length: numDots }, (_, i) => {
+        const theta = (2 * Math.PI * i) / numDots;
+        const phi = (2 * Math.PI * i) / numDots;
+
+        return {
+          x: (R + r * Math.cos(theta)) * Math.cos(phi),
+          y: (R + r * Math.cos(theta)) * Math.sin(phi),
+          z: r * Math.sin(theta),
+          nx: Math.cos(theta) * Math.cos(phi),
+          ny: Math.cos(theta) * Math.sin(phi),
+          nz: Math.sin(theta),
+        };
+      });
+
+      function rotatePoint(point, rx, ry) {
+        // Y-axis rotation
+        let x = point.x * Math.cos(ry) - point.z * Math.sin(ry);
+        let z = point.x * Math.sin(ry) + point.z * Math.cos(ry);
+        point.x = x;
+        point.z = z;
+
+        // X-axis rotation
+        let y = point.y * Math.cos(rx) - point.z * Math.sin(rx);
+        z = point.y * Math.sin(rx) + point.z * Math.cos(rx);
+        point.y = y;
+        point.z = z;
+
+        return point;
+      }
+
+      function project(point) {
+        const depth = 400;
+        const scale = depth / (depth + point.z);
+        return {
+          x: point.x * scale + centerX,
+          y: point.y * scale + centerY,
+          z: point.z,
+          brightness: Math.max(
+            0.3,
+            (point.nx * lightDirection.x +
+              point.ny * lightDirection.y +
+              point.nz * lightDirection.z) *
+              0.7 +
+              0.3,
+          ),
+        };
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const isDark = document.documentElement.classList.contains("dark");
+        const baseColor = isDark ? "rgba(255,255,255" : "rgba(0,0,0";
+
+        const sortedPoints = points
+          .map((p) => {
+            const rotated = rotatePoint({ ...p }, rotation.x, rotation.y);
+            return project(rotated);
+          })
+          .sort((a, b) => b.z - a.z);
+
+        sortedPoints.forEach((p) => {
+          const size = Math.max(2, 5 * (1 - p.z / (R + r)));
+          const alpha = Math.min(0.95, p.brightness * 1.2);
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, size, 0, Math.PI * 2);
+          ctx.fillStyle = `${baseColor},${alpha})`;
+          ctx.fill();
+        });
+      }
+
+      canvas.addEventListener("mousemove", (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+
+        targetRotation.y = ((mouseX / canvas.width - 0.5) * Math.PI) / 2;
+        targetRotation.x = ((mouseY / canvas.height - 0.5) * Math.PI) / 2;
+
+        lastMouseMove = Date.now();
+      });
+
+      function smoothRotate() {
+        const now = Date.now();
+        let deltaTime = (now - lastFrameTime) / 1000;
+        lastFrameTime = now;
+
+        // Prevent large time jumps
+        deltaTime = Math.min(deltaTime, 0.016);
+
+        // Calculate mouse influence with easing
+        const mouseInactiveTime = (now - lastMouseMove) / 1000;
+        const mouseInfluence = Math.pow(
+          Math.max(0, 1 - mouseInactiveTime / 3),
+          2,
+        );
+
+        // Update automatic rotation angles with faster speeds
+        autoRotationAngleX += deltaTime * 0.5;
+        autoRotationAngleY += deltaTime * 0.8;
+
+        // Calculate target rotations
+        const autoX = Math.sin(autoRotationAngleX) * 0.2;
+        const autoY = autoRotationAngleY;
+
+        // Blend targets using mouse influence
+        const targetX =
+          autoX * (1 - mouseInfluence) + targetRotation.x * mouseInfluence;
+        const targetY =
+          autoY * (1 - mouseInfluence) + targetRotation.y * mouseInfluence;
+
+        // Use a fixed damping value to ensure consistency
+        const dampingFactor = Math.min(0.1, 5 * deltaTime);
+        rotation.x += (targetX - rotation.x) * dampingFactor;
+        rotation.y += (targetY - rotation.y) * dampingFactor;
+
+        // Keep angles normalized
+        autoRotationAngleY %= Math.PI * 2;
+      }
+
+      function animate() {
+        smoothRotate();
+        draw();
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+    </script>
+
+    <!-- Footer -->
+    <footer class="pb-3">
+      <div class="max-w-5xl mx-auto px-6 flex flex-col items-center">
+        <!-- Social Icon Buttons -->
+        <div class="flex space-x-4 mb-2">
+          <a
+            href="https://github.com/emmethamell"
+            target="_blank"
+            class="text-gray-700 dark:text-gray-200 hover:text-blue-500"
+            aria-label="GitHub"
+          >
+            <svg fill="currentColor" viewBox="0 0 24 24" class="w-6 h-6">
+              <path
+                fill-rule="evenodd"
+                d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.157-1.11-1.465-1.11-1.465-.908-.62.069-.608.069-.608 1.004.07 1.532 1.033 1.532 1.033.892 1.53 2.341 1.088 2.91.833.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.945 0-1.09.39-1.98 1.029-2.676-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.503.337 1.908-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.696 1.028 1.586 1.028 2.676 0 3.843-2.337 4.687-4.565 4.935.359.31.678.921.678 1.856 0 1.338-.012 2.418-.012 2.745 0 .268.18.58.688.481A10.005 10.005 0 0022 12c0-5.523-4.477-10-10-10z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </a>
+          <a
+            href="https://linkedin.com/in/emmethamell"
+            target="_blank"
+            class="text-gray-700 dark:text-gray-200 hover:text-blue-500"
+            aria-label="LinkedIn"
+          >
+            <svg fill="currentColor" viewBox="0 0 448 512" class="w-6 h-6">
+              <path
+                d="M100.28 448H7.4V148.9h92.88zm-46.44-338a53.36 53.36 0 110-106.72 53.36 53.36 0 010 106.72zm394.36 338h-92.68V302.4c0-34.7-12.4-58.4-43.4-58.4-23.7 0-37.8 16-44 31.4-2.3 5.6-2.9 13.4-2.9 21.2V448h-92.78s1.2-237.4 0-261.1h92.78v37A92.6 92.6 0 01360.5 110c61.6 0 107.9 40.3 107.9 126.8z"
+              />
+            </svg>
+          </a>
+        </div>
+
+        <!-- Copyright and Built With Text -->
+        <p class="text-sm text-gray-600 dark:text-gray-400 text-center">
+          &copy; 2025 Emmet Hamell. All rights reserved.
+        </p>
+        <p class="text-sm text-gray-600 dark:text-gray-400 text-center">
+          This website was built using
+          <a
+            href="https://alpinejs.dev/"
+            target="_blank"
+            class="underline hover:text-blue-500"
+            >Alpine.js</a
+          >
+          and
+          <a
+            href="https://tailwindcss.com/"
+            target="_blank"
+            class="underline hover:text-blue-500"
+            >TailwindCSS</a
+          >.
+        </p>
+      </div>
+    </footer>
   </body>
 </html>
