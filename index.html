@@ -69,7 +69,7 @@
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
       const R = 120;
-      const r = 40;
+      const r = 1;
       const numDots = 800;
       let rotation = { x: 0, y: 0 };
       let targetRotation = { x: 0, y: 0 };
@@ -79,20 +79,38 @@
       let autoRotationAngleY = 0;
       let autoRotationAngleX = 0;
 
-      // Generate 3D torus points
-      const points = Array.from({ length: numDots }, (_, i) => {
-        const theta = (2 * Math.PI * i) / numDots;
-        const phi = (2 * Math.PI * i) / numDots;
+      // A function to create torus points
+      function generateTorusPoints(R, r, divisionsRing, divisionsTube) {
+        const points = [];
 
-        return {
-          x: (R + r * Math.cos(theta)) * Math.cos(phi),
-          y: (R + r * Math.cos(theta)) * Math.sin(phi),
-          z: r * Math.sin(theta),
-          nx: Math.cos(theta) * Math.cos(phi),
-          ny: Math.cos(theta) * Math.sin(phi),
-          nz: Math.sin(theta),
-        };
-      });
+        for (let j = 0; j < divisionsRing; j++) {
+          // Angle around the center of the torus
+          const phi = (2 * Math.PI * j) / divisionsRing;
+
+          for (let i = 0; i < divisionsTube; i++) {
+            // Angle around the tube
+            const theta = (2 * Math.PI * i) / divisionsTube;
+
+            // Parametric equations for a torus
+            const x = (R + r * Math.cos(theta)) * Math.cos(phi);
+            const y = (R + r * Math.cos(theta)) * Math.sin(phi);
+            const z = r * Math.sin(theta);
+
+            // Surface normal for lighting
+            const nx = Math.cos(theta) * Math.cos(phi);
+            const ny = Math.cos(theta) * Math.sin(phi);
+            const nz = Math.sin(theta);
+
+            points.push({ x, y, z, nx, ny, nz });
+          }
+        }
+
+        return points;
+      }
+
+      const divisionsRing = 300; 
+      const divisionsTube = 64;
+      const points = generateTorusPoints(R, r, divisionsRing, divisionsTube);
 
       function rotatePoint(point, rx, ry) {
         // Y-axis rotation
@@ -177,12 +195,12 @@
           2,
         );
 
-        // Update automatic rotation angles with faster speeds
-        autoRotationAngleX += deltaTime * 0.5;
-        autoRotationAngleY += deltaTime * 0.8;
+        // Speed of rotation along both axis
+        autoRotationAngleX += deltaTime * 0.9;
+        autoRotationAngleY += deltaTime * 0.5;
 
-        // Calculate target rotations
-        const autoX = Math.sin(autoRotationAngleX) * 0.2;
+        // Calculate target rotations... remove the sine function for X to get continuous rotation
+        const autoX = autoRotationAngleX;
         const autoY = autoRotationAngleY;
 
         // Blend targets using mouse influence
@@ -191,13 +209,14 @@
         const targetY =
           autoY * (1 - mouseInfluence) + targetRotation.y * mouseInfluence;
 
-        // Use a fixed damping value to ensure consistency
+        // Use a fixed damping value
         const dampingFactor = Math.min(0.1, 5 * deltaTime);
         rotation.x += (targetX - rotation.x) * dampingFactor;
         rotation.y += (targetY - rotation.y) * dampingFactor;
 
         // Keep angles normalized
         autoRotationAngleY %= Math.PI * 2;
+        autoRotationAngleX %= Math.PI * 2;
       }
 
       function animate() {
