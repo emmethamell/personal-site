@@ -8,6 +8,8 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="images/initials_icon.svg" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,800" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Emmet Hamell</title>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -20,7 +22,8 @@
     ></script>
   </head>
   <body
-    class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen transition-colors duration-300"
+    class="antialiased bg-white dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen transition-colors duration-300"
+    style="font-family: 'Open Sans', sans-serif;"
   >
     <!-- Navbar -->
     <nav class="flex justify-between items-center py-4 px-32">
@@ -50,10 +53,10 @@
         </button>
       </div>
     </nav>
-
+   
     <!-- Page Content -->
     <main class="max-w-5xl mx-auto px-6 py-10">
-      <div class="text-xl mb-6 text-gray-800 dark:text-gray-200">Hi, I'm Emmet. I'm a recent computer science graduate and software engineer specializing in the development of full-stack web applications. I currently work as a software engineer at <a href="https://www.fidelity.com" target="_blank" class="underline hover:text-blue-500">Fidelity Investments</a>. Find out more <a href="about.html" class="underline hover:text-blue-500">about me</a> or <a href="projects.html" class="underline hover:text-blue-500">my work</a>.</div>
+      <div class="text-xl mb-6 text-gray-800 dark:text-gray-200" style="font-family: 'Nunito', sans-serif;">Hi, I'm Emmet. I'm a software engineer specializing in the development of full-stack web applications and data engineering patterns. I currently work as a software engineer at <a href="https://www.fidelity.com" target="_blank" class="underline hover:text-blue-500">Fidelity Investments</a>. Find out more <a href="about.html" class="underline hover:text-blue-500">about me</a> or <a href="projects.html" class="underline hover:text-blue-500">my work</a>.</div>
       <canvas
         id="dotCanvas"
         width="400"
@@ -236,7 +239,7 @@
           <a
             href="https://github.com/emmethamell"
             target="_blank"
-            class="text-gray-700 dark:text-gray-200 hover:text-blue-500"
+            class="text-gray-600 dark:text-gray-300 hover:text-blue-500"
             aria-label="GitHub"
           >
             <svg fill="currentColor" viewBox="0 0 24 24" class="w-6 h-6">
@@ -250,7 +253,7 @@
           <a
             href="https://linkedin.com/in/emmethamell"
             target="_blank"
-            class="text-gray-700 dark:text-gray-200 hover:text-blue-500"
+            class="text-gray-600 dark:text-gray-300 hover:text-blue-500"
             aria-label="LinkedIn"
           >
             <svg fill="currentColor" viewBox="0 0 448 512" class="w-6 h-6">
@@ -262,22 +265,22 @@
         </div>
 
         <!-- Copyright and Built With Text -->
-        <p class="text-sm text-gray-600 dark:text-gray-400 text-center">
+        <p class="text-sm text-gray-500 dark:text-gray-400 text-center">
           &copy; 2025 Emmet Hamell. All rights reserved.
         </p>
-        <p class="text-sm text-gray-600 dark:text-gray-400 text-center">
+        <p class="text-sm text-gray-500 dark:text-gray-400 text-center">
           This website was built using
           <a
             href="https://alpinejs.dev/"
             target="_blank"
-            class="underline hover:text-blue-500"
+            class="font-bold underline hover:text-blue-500"
             >Alpine.js</a
           >
           and
           <a
             href="https://tailwindcss.com/"
             target="_blank"
-            class="underline hover:text-blue-500"
+            class="font-bold underline hover:text-blue-500"
             >TailwindCSS</a
           >.
         </p>
