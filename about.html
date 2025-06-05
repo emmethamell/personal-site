@@ -24,10 +24,10 @@
 
   <body
     class="antialiased bg-white dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen transition-colors duration-300"
-    style="font-family: 'Open Sans', sans-serif;"
+    style="font-family: 'Nunito', sans-serif;"
   >
     <!-- Navbar -->
-    <nav class="flex justify-between items-center py-4 px-32">
+    <nav class="flex justify-between items-center py-4 px-4 sm:px-8 lg:px-32">
       <a href="index.html">
         <img
           x-show="!dark"
@@ -42,13 +42,13 @@
           class="w-56"
         />
       </a>
-      <div class="flex items-center space-x-6">
-        <a href="about.html" class="hover:underline">About</a>
-        <a href="projects.html" class="hover:underline">Projects</a>
-        <a href="contact.html" class="hover:underline">Contact</a>
+      <div class="flex items-center space-x-2 sm:space-x-4 lg:space-x-6">
+        <a href="about.html" class="hover:underline text-sm sm:text-base">About</a>
+        <a href="projects.html" class="hover:underline text-sm sm:text-base">Projects</a>
+        <a href="contact.html" class="hover:underline text-sm sm:text-base">Contact</a>
         <button
           @click="dark = !dark"
-          class="bg-gray-300 dark:bg-gray-700 px-2 py-1 rounded text-sm"
+          class="bg-gray-300 dark:bg-gray-700 px-2 py-1 rounded text-xs sm:text-sm"
         >
           <span x-text="dark ? 'Light' : 'Dark'"></span> Mode
         </button>
@@ -56,43 +56,43 @@
     </nav>
 
     <!-- Page Content -->
-    <main class="max-w-5xl mx-auto px-6 py-10">
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-10">
       <!-- About Me -->
-      <h1 class="text-3xl font-bold mb-3">About Me</h1>
+      <h1 class="text-2xl sm:text-3xl font-bold mb-3">About Me</h1>
       <div class="mb-5">
         <img
           src="images/headshot.jpg"
           alt="headshot"
-          class="float-right ml-4 mb-2 w-40 rounded shadow"
+          class="float-none sm:float-right mb-4 sm:ml-4 sm:mb-2 w-full sm:w-40 max-w-xs mx-auto sm:mx-0 rounded shadow"
         />
 
-        <p class="text-lg leading-relaxed">
+        <p class="text-base sm:text-lg leading-relaxed">
           I work on a variety of types of software, and I'm always eager to try new things. I'm currently a full-stack engineer at Fidelity Investments where I help build and maintain applications to help people manage their finances. I studied computer science at UMass Amherst. In my free time, I work on side projects, which you can check out <a href="projects.html" class="underline hover:text-blue-500">here</a>. If you'd like to get in touch, head over to my <a href="contact.html" class="underline hover:text-blue-500">contact page</a>.
         </p>
       </div>
 
       <!-- My Experience -->
       <div>
-        <h1 class="text-3xl font-bold mb-3">My Experience</h1>
+        <h1 class="text-2xl sm:text-3xl font-bold mb-3">My Experience</h1>
 
         <!-- Experience 1-->
-        <div class="flex gap-6 py-6 border-b border-gray-300">
+        <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 py-4 sm:py-6 border-b border-gray-300">
           <!-- Left: Logo -->
-          <div class="flex-shrink-0">
+          <div class="flex-shrink-0 self-center sm:self-start">
             <img
               src="/images/fidelity.png"
               alt="Company Logo"
-              class="w-16 h-16 rounded"
+              class="w-12 h-12 sm:w-16 sm:h-16 rounded"
             />
           </div>
 
           <!-- Right Side -->
           <div class="flex flex-col flex-grow">
-            <div class="flex justify-between">
+            <div class="flex flex-col sm:flex-row sm:justify-between">
               <!-- Left: company title and position-->
-              <div>
+              <div class="mb-2 sm:mb-0">
                 <h3 class="text-lg font-bold">Fidelity Investments</h3>
-                <p class="text-md text-gray-700 dark:text-gray-300">
+                <p class="text-sm sm:text-md text-gray-700 dark:text-gray-300">
                   Incoming Software Engineer
                 </p>
               </div>
@@ -100,7 +100,7 @@
               <!-- Right: Location & Dates -->
               <div>
                 <div
-                  class="text-md text-gray-500 dark:text-gray-400 text-right whitespace-nowrap"
+                  class="text-sm sm:text-md text-gray-500 dark:text-gray-400 sm:text-right"
                 >
                   <p>Merrimack, NH</p>
                   <p>Starting June 2025</p>
@@ -110,7 +110,7 @@
 
             <div>
               <ul
-                class="list-disc list-inside mt-2 text-md text-gray-600 dark:text-gray-400 space-y-1"
+                class="list-disc list-inside mt-2 text-sm sm:text-md text-gray-600 dark:text-gray-400 space-y-1"
               >
                 <li>Incoming full-stack engineer</li>
               </ul>
@@ -119,23 +119,23 @@
         </div>
 
         <!-- Experience 2-->
-        <div class="flex gap-6 py-6 border-b border-gray-300">
+        <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 py-4 sm:py-6 border-b border-gray-300">
           <!-- Left: Logo -->
-          <div class="flex-shrink-0">
+          <div class="flex-shrink-0 self-center sm:self-start">
             <img
               src="/images/hulu.png"
               alt="Company Logo"
-              class="w-16 h-16 rounded"
+              class="w-12 h-12 sm:w-16 sm:h-16 rounded"
             />
           </div>
 
           <!-- Right Side -->
           <div class="flex flex-col flex-grow">
-            <div class="flex justify-between">
+            <div class="flex flex-col sm:flex-row sm:justify-between">
               <!-- Left: company title and position-->
-              <div>
+              <div class="mb-2 sm:mb-0">
                 <h3 class="text-lg font-bold">Hulu</h3>
-                <p class="text-md text-gray-700 dark:text-gray-300">
+                <p class="text-sm sm:text-md text-gray-700 dark:text-gray-300">
                   Product Management Intern
                 </p>
               </div>
@@ -143,7 +143,7 @@
               <!-- Right: Location & Dates -->
               <div>
                 <div
-                  class="text-md text-gray-500 dark:text-gray-400 text-right whitespace-nowrap"
+                  class="text-sm sm:text-md text-gray-500 dark:text-gray-400 sm:text-right"
                 >
                   <p>Santa Monica, CA</p>
                   <p>June 2024 - Aug. 2024</p>
@@ -153,7 +153,7 @@
 
             <div>
               <ul
-                class="list-disc list-inside mt-2 text-md text-gray-600 dark:text-gray-400 space-y-1"
+                class="list-disc list-inside mt-2 text-sm sm:text-md text-gray-600 dark:text-gray-400 space-y-1"
               >
                 <li>
                   Defined feature scope for client incentives on Hulu self serve
@@ -174,23 +174,23 @@
         </div>
 
         <!-- Experience 3-->
-        <div class="flex gap-6 py-6 border-b border-gray-300">
+        <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 py-4 sm:py-6 border-b border-gray-300">
           <!-- Left: Logo -->
-          <div class="flex-shrink-0">
+          <div class="flex-shrink-0 self-center sm:self-start">
             <img
               src="/images/thinkq_ai.jpeg"
               alt="Company Logo"
-              class="w-16 h-16 rounded"
+              class="w-12 h-12 sm:w-16 sm:h-16 rounded"
             />
           </div>
 
           <!-- Right Side -->
           <div class="flex flex-col flex-grow">
-            <div class="flex justify-between">
+            <div class="flex flex-col sm:flex-row sm:justify-between">
               <!-- Left: company title and position-->
-              <div>
+              <div class="mb-2 sm:mb-0">
                 <h3 class="text-lg font-bold">ThinkQ AI</h3>
-                <p class="text-md text-gray-700 dark:text-gray-300">
+                <p class="text-sm sm:text-md text-gray-700 dark:text-gray-300">
                   Software Engineer Intern
                 </p>
               </div>
@@ -198,7 +198,7 @@
               <!-- Right: Location & Dates -->
               <div>
                 <div
-                  class="text-md text-gray-500 dark:text-gray-400 text-right whitespace-nowrap"
+                  class="text-sm sm:text-md text-gray-500 dark:text-gray-400 sm:text-right"
                 >
                   <p>Remote, US</p>
                   <p>Dec. 2023 - Feb. 2024</p>
@@ -208,7 +208,7 @@
 
             <div>
               <ul
-                class="list-disc list-inside mt-2 text-md text-gray-600 dark:text-gray-400 space-y-1"
+                class="list-disc list-inside mt-2 text-sm sm:text-md text-gray-600 dark:text-gray-400 space-y-1"
               >
                 <li>
                   Engineered a Python-based web scraping and data parsing tool
@@ -232,16 +232,16 @@
     </main>
     <!-- Footer -->
     <footer class="pb-3">
-      <div class="max-w-5xl mx-auto px-6 flex flex-col items-center">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col items-center">
         <!-- Social Icon Buttons -->
-        <div class="flex space-x-4 mb-2">
+        <div class="flex space-x-4 sm:space-x-6 mb-2 sm:mb-4">
           <a
             href="https://github.com/emmethamell"
             target="_blank"
             class="text-gray-600 dark:text-gray-300 hover:text-blue-500"
             aria-label="GitHub"
           >
-            <svg fill="currentColor" viewBox="0 0 24 24" class="w-6 h-6">
+            <svg fill="currentColor" viewBox="0 0 24 24" class="w-6 h-6 sm:w-7 sm:h-7">
               <path
                 fill-rule="evenodd"
                 d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.157-1.11-1.465-1.11-1.465-.908-.62.069-.608.069-.608 1.004.07 1.532 1.033 1.532 1.033.892 1.53 2.341 1.088 2.91.833.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.945 0-1.09.39-1.98 1.029-2.676-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.503.337 1.908-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.696 1.028 1.586 1.028 2.676 0 3.843-2.337 4.687-4.565 4.935.359.31.678.921.678 1.856 0 1.338-.012 2.418-.012 2.745 0 .268.18.58.688.481A10.005 10.005 0 0022 12c0-5.523-4.477-10-10-10z"
@@ -255,7 +255,7 @@
             class="text-gray-600 dark:text-gray-300 hover:text-blue-500"
             aria-label="LinkedIn"
           >
-            <svg fill="currentColor" viewBox="0 0 448 512" class="w-6 h-6">
+            <svg fill="currentColor" viewBox="0 0 448 512" class="w-6 h-6 sm:w-7 sm:h-7">
               <path
                 d="M100.28 448H7.4V148.9h92.88zm-46.44-338a53.36 53.36 0 110-106.72 53.36 53.36 0 010 106.72zm394.36 338h-92.68V302.4c0-34.7-12.4-58.4-43.4-58.4-23.7 0-37.8 16-44 31.4-2.3 5.6-2.9 13.4-2.9 21.2V448h-92.78s1.2-237.4 0-261.1h92.78v37A92.6 92.6 0 01360.5 110c61.6 0 107.9 40.3 107.9 126.8z"
               />
@@ -264,10 +264,10 @@
         </div>
 
         <!-- Copyright and Built With Text -->
-        <p class="text-sm text-gray-500 dark:text-gray-400 text-center">
+        <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 text-center mb-1">
           &copy; 2025 Emmet Hamell. All rights reserved.
         </p>
-        <p class="text-sm text-gray-500 dark:text-gray-400 text-center">
+        <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 text-center">
           This website was built using
           <a
             href="https://alpinejs.dev/"

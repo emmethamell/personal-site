@@ -23,31 +23,31 @@
   </head>
   <body
     class="antialiased bg-white dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen transition-colors duration-300"
-    style="font-family: 'Open Sans', sans-serif;"
+    style="font-family: 'Nunito', sans-serif;"
   >
     <!-- Navbar -->
-    <nav class="flex justify-between items-center py-4 px-32">
+    <nav class="flex justify-between items-center py-4 px-4 sm:px-8 lg:px-32">
       <a href="index.html">
         <img
           x-show="!dark"
           src="images/signature.png"
           alt="Signature"
-          class="w-56"
+          class="w-32 sm:w-40 lg:w-56"
         />
         <img
           x-show="dark"
           src="images/signature-white.png"
           alt="Signature-white"
-          class="w-56"
+          class="w-32 sm:w-40 lg:w-56"
         />
       </a>
-      <div class="flex items-center space-x-6">
-        <a href="about.html" class="hover:underline">About</a>
-        <a href="projects.html" class="hover:underline">Projects</a>
-        <a href="contact.html" class="hover:underline">Contact</a>
+      <div class="flex items-center space-x-2 sm:space-x-4 lg:space-x-6">
+        <a href="about.html" class="hover:underline text-sm sm:text-base">About</a>
+        <a href="projects.html" class="hover:underline text-sm sm:text-base">Projects</a>
+        <a href="contact.html" class="hover:underline text-sm sm:text-base">Contact</a>
         <button
           @click="dark = !dark"
-          class="bg-gray-300 dark:bg-gray-700 px-2 py-1 rounded text-sm"
+          class="bg-gray-300 dark:bg-gray-700 px-2 py-1 rounded text-xs sm:text-sm"
         >
           <span x-text="dark ? 'Light' : 'Dark'"></span> Mode
         </button>
@@ -55,13 +55,14 @@
     </nav>
    
     <!-- Page Content -->
-    <main class="max-w-5xl mx-auto px-6 py-10">
-      <div class="text-xl mb-6 text-gray-800 dark:text-gray-200" style="font-family: 'Nunito', sans-serif;">Hi, I'm Emmet. I'm a software engineer specializing in the development of full-stack web applications and data engineering patterns. I currently work as a software engineer at <a href="https://www.fidelity.com" target="_blank" class="underline hover:text-blue-500">Fidelity Investments</a>. Find out more <a href="about.html" class="underline hover:text-blue-500">about me</a> or <a href="projects.html" class="underline hover:text-blue-500">my work</a>.</div>
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-10">
+      <div class="text-base sm:text-lg lg:text-xl mb-6 text-gray-800 dark:text-gray-200 leading-relaxed">Hi, I'm Emmet. I'm a software engineer specializing in the development of full-stack web applications and data engineering patterns. I currently work as a software engineer at <b><a href="https://www.fidelity.com" target="_blank" class="underline hover:text-blue-500">Fidelity Investments</a></b>. Find out more <b><a href="about.html" class="underline hover:text-blue-500">about me</a></b> or <b><a href="projects.html" class="underline hover:text-blue-500">my work</a></b>.</div>
       <canvas
         id="dotCanvas"
         width="400"
         height="400"
-        class="mx-auto block"
+        class="mx-auto block max-w-full h-auto"
+        style="max-width: min(400px, 90vw); max-height: min(400px, 90vw);"
       ></canvas>
     </main>
 
@@ -69,9 +70,22 @@
       const canvas = document.getElementById("dotCanvas");
       const ctx = canvas.getContext("2d");
 
-      const centerX = canvas.width / 2;
-      const centerY = canvas.height / 2;
-      const R = 120;
+      // Make canvas responsive
+      function resizeCanvas() {
+        const maxSize = Math.min(400, window.innerWidth * 0.9, window.innerHeight * 0.5);
+        canvas.width = maxSize;
+        canvas.height = maxSize;
+        canvas.style.width = maxSize + "px";
+        canvas.style.height = maxSize + "px";
+      }
+
+      // Initial resize and listen for window resize
+      resizeCanvas();
+      window.addEventListener("resize", resizeCanvas);
+
+      let centerX = canvas.width / 2;
+      let centerY = canvas.height / 2;
+      const R = Math.min(120, canvas.width * 0.3);
       const r = 1;
       const numDots = 800;
       let rotation = { x: 0, y: 0 };
@@ -150,6 +164,10 @@
       }
 
       function draw() {
+        // Update center coordinates in case canvas was resized
+        centerX = canvas.width / 2;
+        centerY = canvas.height / 2;
+        
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         const isDark = document.documentElement.classList.contains("dark");
         const baseColor = isDark ? "rgba(255,255,255" : "rgba(0,0,0";
@@ -162,7 +180,7 @@
           .sort((a, b) => b.z - a.z);
 
         sortedPoints.forEach((p) => {
-          const size = Math.max(2, 5 * (1 - p.z / (R + r)));
+          const size = Math.max(1, Math.min(5, canvas.width * 0.012) * (1 - p.z / (R + r)));
           const alpha = Math.min(0.95, p.brightness * 1.2);
 
           ctx.beginPath();
@@ -232,17 +250,17 @@
     </script>
 
     <!-- Footer -->
-    <footer class="pb-3">
-      <div class="max-w-5xl mx-auto px-6 flex flex-col items-center">
+    <footer class="pb-3 mt-8">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col items-center">
         <!-- Social Icon Buttons -->
-        <div class="flex space-x-4 mb-2">
+        <div class="flex space-x-6 mb-4">
           <a
             href="https://github.com/emmethamell"
             target="_blank"
             class="text-gray-600 dark:text-gray-300 hover:text-blue-500"
             aria-label="GitHub"
           >
-            <svg fill="currentColor" viewBox="0 0 24 24" class="w-6 h-6">
+            <svg fill="currentColor" viewBox="0 0 24 24" class="w-6 h-6 sm:w-7 sm:h-7">
               <path
                 fill-rule="evenodd"
                 d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.157-1.11-1.465-1.11-1.465-.908-.62.069-.608.069-.608 1.004.07 1.532 1.033 1.532 1.033.892 1.53 2.341 1.088 2.91.833.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.945 0-1.09.39-1.98 1.029-2.676-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.503.337 1.908-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.696 1.028 1.586 1.028 2.676 0 3.843-2.337 4.687-4.565 4.935.359.31.678.921.678 1.856 0 1.338-.012 2.418-.012 2.745 0 .268.18.58.688.481A10.005 10.005 0 0022 12c0-5.523-4.477-10-10-10z"
@@ -256,7 +274,7 @@
             class="text-gray-600 dark:text-gray-300 hover:text-blue-500"
             aria-label="LinkedIn"
           >
-            <svg fill="currentColor" viewBox="0 0 448 512" class="w-6 h-6">
+            <svg fill="currentColor" viewBox="0 0 448 512" class="w-6 h-6 sm:w-7 sm:h-7">
               <path
                 d="M100.28 448H7.4V148.9h92.88zm-46.44-338a53.36 53.36 0 110-106.72 53.36 53.36 0 010 106.72zm394.36 338h-92.68V302.4c0-34.7-12.4-58.4-43.4-58.4-23.7 0-37.8 16-44 31.4-2.3 5.6-2.9 13.4-2.9 21.2V448h-92.78s1.2-237.4 0-261.1h92.78v37A92.6 92.6 0 01360.5 110c61.6 0 107.9 40.3 107.9 126.8z"
               />
@@ -265,10 +283,10 @@
         </div>
 
         <!-- Copyright and Built With Text -->
-        <p class="text-sm text-gray-500 dark:text-gray-400 text-center">
+        <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 text-center mb-1">
           &copy; 2025 Emmet Hamell. All rights reserved.
         </p>
-        <p class="text-sm text-gray-500 dark:text-gray-400 text-center">
+        <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 text-center">
           This website was built using
           <a
             href="https://alpinejs.dev/"
