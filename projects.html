@@ -57,26 +57,51 @@
     <main class="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-10">
       <div class="space-y-8 sm:space-y-12">
 
-        <!-- FaithTap.org -->
+        <!-- Ocrila -->
         <div
-          class="flex flex-col md:flex-row-reverse items-center md:items-start gap-4 sm:gap-6"
+          class="flex flex-col md:flex-row items-center md:items-start gap-4 sm:gap-6"
         >
           <div class="md:w-1/2">
-            <h2 class="text-xl sm:text-2xl font-semibold">FaithTap.org</h2>
+            <h2 class="text-xl sm:text-2xl font-semibold">Ocrila</h2>
             <p class="text-gray-600 dark:text-gray-400 mt-2 text-sm sm:text-base">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
+              Ocrila is an AI voice host for restaurants that I'm building. It
+              answers the restaurant's phone, takes orders, books tables, answers
+              questions about hours and the menu, and transfers the call to a
+              person when something actually needs one — day and night, in any
+              language. The voice pipeline uses Deepgram for speech-to-text,
+              Claude for the reasoning, and ElevenLabs for the voice, so callers
+              get a natural back-and-forth instead of a phone tree.
             </p>
           </div>
           <div class="md:w-1/2 w-full">
             <img
-              src="https://picsum.photos/400/250"
-              alt="FaithTap.org"
+              src="images/ocrila.png"
+              alt="Ocrila"
+              class="rounded shadow w-full"
+            />
+          </div>
+        </div>
+
+        <!-- Kind Offering -->
+        <div
+          class="flex flex-col md:flex-row-reverse items-center md:items-start gap-4 sm:gap-6"
+        >
+          <div class="md:w-1/2">
+            <h2 class="text-xl sm:text-2xl font-semibold">Kind Offering</h2>
+            <p class="text-gray-600 dark:text-gray-400 mt-2 text-sm sm:text-base">
+              Kind Offering is an online giving platform I built for churches
+              and faith communities to collect donations. People can give with a
+              card, Apple or Google Pay, or straight from their bank account
+              over ACH, which keeps the processing fees down. The backend is
+              Java and Spring Boot with a Postgres database, the frontend is
+              Angular, and the payments run through Stripe. The whole thing is
+              containerized with Docker.
+            </p>
+          </div>
+          <div class="md:w-1/2 w-full">
+            <img
+              src="images/kind-offering.png"
+              alt="Kind Offering donation page"
               class="rounded shadow w-full"
             />
           </div>
@@ -89,18 +114,19 @@
           <div class="md:w-1/2">
             <h2 class="text-xl sm:text-2xl font-semibold">Packet Sniffer</h2>
             <p class="text-gray-600 dark:text-gray-400 mt-2 text-sm sm:text-base">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
+              This is a desktop app I made to watch network traffic on my
+              machine in real time. You pick a network interface, hit start, and
+              it grabs packets as they come in and shows the source,
+              destination, protocol, and size for each one. While it's running
+              it also keeps a live tally of things like which protocols show up
+              most and the busiest addresses on the network. I wrote it in
+              Python, with Scapy doing the actual packet capture and PyQt6 for
+              the interface.
             </p>
           </div>
           <div class="md:w-1/2 w-full">
             <img
-              src="https://picsum.photos/400/250?6"
+              src="images/packet-sniffer.png"
               alt="Packet Sniffer"
               class="rounded shadow w-full"
             />
@@ -114,13 +140,14 @@
           <div class="md:w-1/2">
             <h2 class="text-xl sm:text-2xl font-semibold">CodePrep.ai</h2>
             <p class="text-gray-600 dark:text-gray-400 mt-2 text-sm sm:text-base">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
+              CodePrep runs you through a mock technical interview with an AI
+              interviewer. It gives you a problem, you write and run your
+              solution in the editor, and it asks follow-up questions as you go
+              the way a real interviewer would, then scores you and writes up
+              feedback at the end. The interviewer talks to you in real time
+              over websockets, and the questions and feedback come from the
+              OpenAI API. The frontend is React with the Monaco editor for the
+              code panel, and the backend is Python and Flask with Postgres.
             </p>
           </div>
           <div class="md:w-1/2 w-full">
@@ -139,20 +166,20 @@
           <div class="md:w-1/2">
             <h2 class="text-xl sm:text-2xl font-semibold">Promotion Management</h2>
             <p class="text-gray-600 dark:text-gray-400 mt-2 text-sm sm:text-base">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
+              A backend system I built for creating and tracking marketing
+              promotions. You set up a campaign, generate coupons and promo
+              codes under it, and it records every redemption so you can see
+              what's actually getting used and what isn't. It's a REST API
+              written in Java and Spring Boot, backed by Postgres through JPA
+              and documented with Swagger. I also put together a small React
+              frontend to manage everything from the browser.
             </p>
           </div>
           <div class="md:w-1/2 w-full">
             <img
-              src="https://picsum.photos/400/250?3"
-              alt="Project 1"
-              class="rounded shadow w-full"
+              src="images/promotion-erd.svg"
+              alt="Promotion Management entity-relationship diagram"
+              class="rounded shadow w-full bg-white"
             />
           </div>
         </div>
