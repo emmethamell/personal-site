@@ -1,6 +1,7 @@
 <!doctype html>
 <html
   lang="en"
+  class="[scrollbar-gutter:stable]"
   x-data="{ dark: localStorage.getItem('dark') === 'true' }"
   x-init="$watch('dark', val => localStorage.setItem('dark', val))"
   :class="{ 'dark': dark }"
@@ -33,13 +34,13 @@
           x-show="!dark"
           src="images/signature.png"
           alt="Signature"
-          class="w-56"
+          class="w-32 sm:w-40 lg:w-56"
         />
         <img
           x-show="dark"
           src="images/signature-white.png"
           alt="Signature-white"
-          class="w-56"
+          class="w-32 sm:w-40 lg:w-56"
         />
       </a>
       <div class="flex items-center space-x-2 sm:space-x-4 lg:space-x-6">
@@ -112,7 +113,7 @@
               <ul
                 class="list-disc list-inside mt-2 text-base sm:text-lg text-gray-600 dark:text-gray-400 space-y-1"
               >
-                <li>Working on NetBenefits</li>
+                <li>Working on the personalized planning &amp; advice product within NetBenefits</li>
                 <li>Completed the LEAP program in November 2025</li>
               </ul>
             </div>

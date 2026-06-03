@@ -1,6 +1,7 @@
 <!doctype html>
 <html
   lang="en"
+  class="[scrollbar-gutter:stable]"
   x-data="{ dark: localStorage.getItem('dark') === 'true' }"
   x-init="$watch('dark', val => localStorage.setItem('dark', val))"
   :class="{ 'dark': dark }"
