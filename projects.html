@@ -69,9 +69,12 @@
               now. It answers the restaurant's phone, takes orders, books tables,
               and answers questions about things like hours and the menu, and it
               passes the call to a real person when one is needed. It runs day
-              and night and can handle callers in different languages. For the
-              voice side I'm using Deepgram for speech-to-text, Claude to handle
-              the responses, and ElevenLabs for the voice.
+              and night and can handle callers in different languages. On the
+              voice side, the audio gets transcribed as the caller talks, that
+              text goes to an LLM that works out what they want and calls into
+              the backend to place the order or book the table, and then the
+              reply gets turned back into speech. A lot of the work has just
+              been keeping that loop fast so talking to it doesn't feel laggy.
             </p>
           </div>
           <div class="md:w-1/2 w-full">
